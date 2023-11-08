@@ -1,0 +1,49 @@
+name: Prisma Cloud Scan
+description: Scan container images for vulnerabilities and compliance issues
+branding:
+  color: orange
+  icon: search
+inputs:
+  pcc_console_url:
+    description: URL of your Prisma Cloud Compute Console
+    required: true
+  pcc_user:
+    description: Username of a user with the CI user role
+    required: true
+  pcc_pass:
+    description: Password of a user with the CI user role
+    required: true
+  image_name:
+    description: Name (or ID) of the image to be scanned
+    required: true
+  containerized:
+    description: Run the scan from inside a running container (must be 'true', 'yes', 'y', or '1')
+    required: false
+  results_file:
+    description: File to which scan results are written
+    required: false
+    default: pcc_scan_results.json
+  sarif_file:
+    description: File to which scan results are written in SARIF
+    required: false
+    default: pcc_scan_results.sarif.json
+  docker_address:
+    description: Address of the Docker daemon
+    required: false
+  docker_tlscacert:
+    description: Path to the Docker CA certificate
+    required: false
+  docker_tlscert:
+    description: Path to the Docker client certificate
+    required: false
+  docker_tlskey:
+    description: Path to the Docker client private key
+    required: false
+outputs:
+  results_file:
+    description: File containing scan results
+  sarif_file:
+    description: File containing scan results in SARIF
+runs:
+  using: node16
+  main: dist/index.js
